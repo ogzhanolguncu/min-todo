@@ -1,20 +1,9 @@
+import { createContext } from "@app/server/context";
+import { appRouter } from "@app/server/routers";
 import * as trpcNext from "@trpc/server/adapters/next";
 
-import { createContext } from "@app/server/context";
-import { appRouter } from "@app/server/routers/_app";
-
+// export API handler
 export default trpcNext.createNextApiHandler({
 	router: appRouter,
-
-	createContext,
-
-	onError({ error }) {
-		if (error.code === "INTERNAL_SERVER_ERROR") {
-			console.error("Something went wrong", error);
-		}
-	},
-
-	batching: {
-		enabled: true,
-	},
+	createContext: createContext,
 });

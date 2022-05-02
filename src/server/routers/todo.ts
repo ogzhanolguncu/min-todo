@@ -1,9 +1,8 @@
-import { createRouter } from "../createRouter";
+import { prisma } from "@app/db/client";
+import { createRouter } from "../context";
 
-export const todoRouter = createRouter().query("hello", {
-	async resolve({ ctx }) {
-		return {
-			greeting: `hello`,
-		};
+export const todoRouter = createRouter().query("get-all-todos", {
+	async resolve() {
+		return await prisma.todo.findMany();
 	},
 });
