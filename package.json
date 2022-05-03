@@ -12,25 +12,29 @@
 		"build": "run-s build:*"
 	},
 	"dependencies": {
+		"@chakra-ui/react": "^1.8.8",
+		"@emotion/react": "^11.9.0",
+		"@emotion/styled": "^11.8.1",
+		"@prisma/client": "^3.3.0",
 		"@trpc/client": "^9.23.2",
 		"@trpc/next": "^9.23.2",
 		"@trpc/react": "^9.23.2",
 		"@trpc/server": "^9.23.2",
+		"framer-motion": "^6.3.3",
 		"next": "12.1.5",
 		"react": "18.1.0",
 		"react-dom": "18.1.0",
 		"react-query": "^3.38.1",
 		"superjson": "^1.9.1",
-		"zod": "^3.14.4",
-		"@prisma/client": "^3.3.0"
+		"zod": "^3.14.4"
 	},
 	"devDependencies": {
-		"prisma": "^3.13.0",
 		"@types/node": "17.0.31",
 		"@types/react": "18.0.8",
 		"@types/react-dom": "18.0.3",
 		"eslint": "8.14.0",
 		"eslint-config-next": "12.1.5",
+		"prisma": "^3.13.0",
 		"typescript": "4.6.4"
 	}
 }
