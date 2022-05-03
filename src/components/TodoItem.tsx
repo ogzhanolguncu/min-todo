@@ -16,6 +16,19 @@ export const TodoItem = ({
 }: Props) => {
   return (
     <Flex align="center" gap="1rem">
+      <Box
+        width="45px"
+        height="45px"
+        borderRadius="10px"
+        backgroundSize="contain"
+        backgroundImage={isCompleted ? "'/double-tick.png'" : "unset"}
+        backgroundColor={isCompleted ? "purple.300" : priorityColor}
+        transition="background-color 0.4s ease"
+        _hover={{
+          backgroundImage: "/double-tick.png",
+          backgroundColor: "purple.300",
+        }}
+      />
       <Flex flexDirection="column">
         <Text
           fontSize="2xl"
@@ -32,19 +45,6 @@ export const TodoItem = ({
           {date}
         </Text>
       </Flex>
-      <Box
-        width="45px"
-        height="45px"
-        borderRadius="10px"
-        backgroundSize="contain"
-        backgroundImage={isCompleted ? "'/double-tick.png'" : "unset"}
-        backgroundColor={isCompleted ? "purple" : priorityColor}
-        transition="background-color 0.4s ease"
-        _hover={{
-          backgroundImage: "/double-tick.png",
-          backgroundColor: "purple",
-        }}
-      />
     </Flex>
   );
 };

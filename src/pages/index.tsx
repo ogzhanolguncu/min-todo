@@ -61,23 +61,24 @@ export default function Home() {
             <TodoItem
               content="Buy Milk"
               date=" Mon, Mar 05"
-              priorityColor="green.400"
+              priorityColor="green.300"
               isCompleted
             />
             <TodoItem
               content="Plan weekend outing Plan weekend outing."
               date=" Mon, Mar 05"
-              priorityColor="red.400"
+              priorityColor="red.300"
+              isCompleted
             />
             <TodoItem
               content="Wash clothes"
               date="Mon, Mar 05"
-              priorityColor="green.400"
+              priorityColor="green.300"
             />
             <TodoItem
               content="Walk 10 kilometers"
               date=" Mon, Mar 05"
-              priorityColor="orange.400"
+              priorityColor="orange.300"
             />
           </Stack>
         </Flex>
