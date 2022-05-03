@@ -21,6 +21,11 @@ export default function Home() {
       color="gray.800"
       backgroundColor="#F9F7F7"
       flexDir="column"
+      lineHeight="1.7"
+      css={{
+        wordSpacing: "1.2px",
+        letterSpacing: "0.1px",
+      }}
     >
       <Flex width="760px" flexDir="column" alignItems="center">
         <Input
@@ -28,7 +33,6 @@ export default function Home() {
           placeholder="Plan weekend outing"
           fontSize="xl"
           mb="7rem"
-          width="500px"
           color="gray.600"
           borderBottomColor="gray.300"
           borderBottom="2px solid"
@@ -36,7 +40,7 @@ export default function Home() {
             borderBottomColor: "gray.400",
           }}
         />
-        <Stack gap="0.5rem">
+        <Stack gap="0.5rem" width="760px">
           <Heading fontSize="6xl">My Tasks</Heading>
           <Text color="#5f708a" fontWeight="medium" fontSize="2xl">
             2 of 7 Completed
@@ -46,9 +50,10 @@ export default function Home() {
               content="Buy Milk"
               date=" Mon, Mar 05"
               priorityColor="green.400"
+              isCompleted
             />
             <TodoItem
-              content="Plan weekend outing"
+              content="Plan weekend outing Plan weekend outing."
               date=" Mon, Mar 05"
               priorityColor="red.400"
             />
