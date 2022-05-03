@@ -33,12 +33,17 @@ export const TodoItem = ({
         </Text>
       </Flex>
       <Box
-        backgroundColor={priorityColor}
         width="45px"
         height="45px"
         borderRadius="10px"
         backgroundSize="contain"
         backgroundImage={isCompleted ? "'/double-tick.png'" : "unset"}
+        backgroundColor={isCompleted ? "purple" : priorityColor}
+        transition="background-color 0.4s ease"
+        _hover={{
+          backgroundImage: "/double-tick.png",
+          backgroundColor: "purple",
+        }}
       />
     </Flex>
   );

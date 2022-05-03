@@ -35,7 +35,7 @@ export default function Home() {
         boxShadow="8px 8px #8080805e"
         borderRadius="10px"
         width="750px"
-        backgroundColor="#f8edeb"
+        backgroundColor="#e9f5f3"
       >
         <Flex gap="0.5rem" flexDirection="column">
           <Input
@@ -43,18 +43,18 @@ export default function Home() {
             placeholder="Plan weekend outing"
             fontSize="xl"
             mb="7rem"
-            color="gray.700"
-            borderBottomColor="gray.700"
+            color="gray.600"
+            borderBottomColor="gray.500"
             borderBottom="2px solid"
             _focus={{
               borderBottomColor: "gray.800",
             }}
             _placeholder={{
-              color: "gray.600",
+              color: "gray.500",
             }}
           />
           <Heading fontSize="6xl">My Tasks</Heading>
-          <Text color="#5f708a" fontWeight="medium" fontSize="2xl">
+          <Text color="#5f708a" fontWeight="medium" fontSize="2xl" mb="2rem">
             1 of 4 Completed
           </Text>
           <Stack w="100%" gap="0.5rem" fontWeight="medium">
