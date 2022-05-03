@@ -27,23 +27,35 @@ export default function Home() {
         letterSpacing: "0.1px",
       }}
     >
-      <Flex width="760px" flexDir="column" alignItems="center">
-        <Input
-          variant="flushed"
-          placeholder="Plan weekend outing"
-          fontSize="xl"
-          mb="7rem"
-          color="gray.600"
-          borderBottomColor="gray.300"
-          borderBottom="2px solid"
-          _focus={{
-            borderBottomColor: "gray.400",
-          }}
-        />
-        <Stack gap="0.5rem" width="760px">
+      <Flex
+        flexDir="column"
+        alignItems="flex-start"
+        padding="2rem"
+        border="3px solid transparent"
+        boxShadow="8px 8px #8080805e"
+        borderRadius="10px"
+        width="750px"
+        backgroundColor="#f8edeb"
+      >
+        <Flex gap="0.5rem" flexDirection="column">
+          <Input
+            variant="flushed"
+            placeholder="Plan weekend outing"
+            fontSize="xl"
+            mb="7rem"
+            color="gray.700"
+            borderBottomColor="gray.700"
+            borderBottom="2px solid"
+            _focus={{
+              borderBottomColor: "gray.800",
+            }}
+            _placeholder={{
+              color: "gray.600",
+            }}
+          />
           <Heading fontSize="6xl">My Tasks</Heading>
           <Text color="#5f708a" fontWeight="medium" fontSize="2xl">
-            2 of 7 Completed
+            1 of 4 Completed
           </Text>
           <Stack w="100%" gap="0.5rem" fontWeight="medium">
             <TodoItem
@@ -68,7 +80,7 @@ export default function Home() {
               priorityColor="orange.400"
             />
           </Stack>
-        </Stack>
+        </Flex>
       </Flex>
     </Center>
   );
