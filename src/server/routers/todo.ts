@@ -3,12 +3,12 @@ import { createRouter } from "../createRouter";
 import { prisma } from "../prisma";
 
 export const todoRouter = createRouter()
-  .query("get-all-todos", {
+  .query("get-all", {
     async resolve() {
       return await prisma.todo.findMany();
     },
   })
-  .mutation("add-todo", {
+  .mutation("add", {
     input: z.object({
       content: z.string().min(1).max(100),
       priority: z.enum(["GREEN", "RED", "ORANGE"]),
@@ -23,7 +23,7 @@ export const todoRouter = createRouter()
       return post;
     },
   })
-  .mutation("delete-todo", {
+  .mutation("delete", {
     input: z.object({
       id: z.string().nonempty(),
     }),

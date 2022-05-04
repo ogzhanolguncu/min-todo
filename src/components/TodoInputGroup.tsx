@@ -7,10 +7,9 @@ import useKey from "../hooks/useKey";
 
 const TodoInputGroup = () => {
   const utils = trpc.useContext();
-  const addTodo = trpc.useMutation("todo.add-todo", {
+  const addTodo = trpc.useMutation("todo.add", {
     async onSuccess() {
-      // refetches posts after a post is added
-      await utils.invalidateQueries(["todo.get-all-todos"]);
+      await utils.invalidateQueries(["todo.get-all"]);
     },
   });
 

@@ -21,7 +21,7 @@ import TodoSkeletonLoaders from "@app/components/TodoSkeletonLoaders";
 const MotionBox = motion(Box);
 
 export default function Home() {
-  const { data, isLoading } = trpc.useQuery(["todo.get-all-todos"]);
+  const { data, isLoading } = trpc.useQuery(["todo.get-all"]);
 
   return (
     <Center
