@@ -17,6 +17,7 @@ import { colorMapper } from "@app/utils/colorMapper";
 import TodoInputGroup from "@app/components/TodoInputGroup";
 import { TodoItem } from "@app/components/TodoItem";
 import TodoSkeletonLoaders from "@app/components/TodoSkeletonLoaders";
+import TodoTitle from "@app/components/TodoTitle";
 
 const MotionBox = motion(Box);
 
@@ -45,13 +46,11 @@ export default function Home() {
         width="750px"
         backgroundColor="#e9f5f3"
       >
-        <Flex gap="0.5rem" flexDirection="column">
+        <Flex gap="2rem" flexDirection="column">
           <TodoInputGroup />
-          <Heading fontSize="6xl">My Tasks</Heading>
-          <Text color="#5f708a" fontWeight="medium" fontSize="2xl" mb="2rem">
-            1 of 4 Completed
-          </Text>
+          <TodoTitle />
           <Stack w="100%" gap="0.5rem" fontWeight="medium">
+            {!data?.length && <Text fontSize="2xl">No todos yet.</Text>}
             {data?.map((todo) => (
               <MotionBox
                 key={todo.id}
@@ -64,6 +63,7 @@ export default function Home() {
                   date={dayjs(todo.createdAt).format("dddd, MMMM D")}
                   priorityColor={colorMapper[todo.priority]}
                   isCompleted={todo.isCompleted}
+                  id={todo.id}
                 />
               </MotionBox>
             ))}

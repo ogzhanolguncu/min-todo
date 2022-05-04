@@ -6,28 +6,17 @@ const TodoSkeletonLoaders = () => {
     <Flex gap="1rem" flexDirection="column">
       <Skeleton
         height="50px"
-        startColor="green.300"
-        endColor="red.300"
+        startColor="#C7EDE6"
+        endColor="#C7EDE6"
         borderRadius="10px"
       />
       <Skeleton
         height="50px"
-        startColor="green.300"
-        endColor="red.300"
+        startColor="#C7EDE6"
+        endColor="#C7EDE6"
         borderRadius="10px"
       />
-      <Skeleton
-        height="50px"
-        startColor="green.300"
-        endColor="red.300"
-        borderRadius="10px"
-      />
-      <Skeleton
-        height="50px"
-        startColor="green.300"
-        endColor="red.300"
-        borderRadius="10px"
-      />
+    
     </Flex>
   );
 };
