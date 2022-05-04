@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 
-const useKey = (key: string, fn: () => void) => {
+const useKey = (key: string, fn: any) => {
   useEffect(() => {
     const keyDownHandler = (event: KeyboardEventInit) => {
       if (event.key === key) {
