@@ -14,7 +14,6 @@ export const todoRouter = createRouter()
       priority: z.enum(["GREEN", "RED", "ORANGE"]),
     }),
     async resolve({ input }) {
-      console.log(input);
       const post = await prisma.todo.create({
         data: {
           content: input.content,
@@ -22,5 +21,17 @@ export const todoRouter = createRouter()
         },
       });
       return post;
+    },
+  })
+  .mutation("delete-todo", {
+    input: z.object({
+      id: z.string().nonempty(),
+    }),
+    async resolve({ input }) {
+      await prisma.todo.delete({
+        where: {
+          id: input.id,
+        },
+      });
     },
   });
