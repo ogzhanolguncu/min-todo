@@ -6,7 +6,13 @@ import { Priority } from "@prisma/client";
 import useKey from "../hooks/useKey";
 
 const TodoInputGroup = () => {
-  const addTodo = trpc.useMutation("todo.add-todo");
+  const utils = trpc.useContext();
+  const addTodo = trpc.useMutation("todo.add-todo", {
+    async onSuccess() {
+      // refetches posts after a post is added
+      await utils.invalidateQueries(["todo.get-all-todos"]);
+    },
+  });
 
   const [content, setContent] = useState("");
   const [priority, setPriority] = useState<Priority>();
@@ -20,6 +26,8 @@ const TodoInputGroup = () => {
   const handleAddTodo = async () => {
     if (!priority || !content) return;
     await addTodo.mutateAsync({ priority, content });
+    setContent("");
+    setPriority(undefined);
   };
 
   useKey("Enter", handleAddTodo);

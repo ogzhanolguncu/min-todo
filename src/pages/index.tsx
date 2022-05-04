@@ -1,22 +1,27 @@
-import TodoInputGroup from "@app/components/TodoInputGroup";
-import { TodoItem } from "@app/components/TodoItem";
+import React from "react";
+
 import {
   Box,
-  Button,
   Center,
   Flex,
   Heading,
-  HStack,
-  Input,
+  Skeleton,
   Stack,
   Text,
   VStack,
 } from "@chakra-ui/react";
-import React from "react";
-import { trpc } from "../utils/trpc";
+import dayjs from "dayjs";
+import { motion } from "framer-motion";
+import { trpc } from "@app/utils/trpc";
+import { colorMapper } from "@app/utils/colorMapper";
+import TodoInputGroup from "@app/components/TodoInputGroup";
+import { TodoItem } from "@app/components/TodoItem";
+import TodoSkeletonLoaders from "@app/components/TodoSkeletonLoaders";
+
+const MotionBox = motion(Box);
 
 export default function Home() {
-  //   const { data, isLoading } = trpc.useQuery(["get-all-todos"]);
+  const { data, isLoading } = trpc.useQuery(["todo.get-all-todos"]);
 
   return (
     <Center
@@ -47,28 +52,22 @@ export default function Home() {
             1 of 4 Completed
           </Text>
           <Stack w="100%" gap="0.5rem" fontWeight="medium">
-            <TodoItem
-              content="Buy Milk"
-              date=" Mon, Mar 05"
-              priorityColor="green.300"
-              isCompleted
-            />
-            <TodoItem
-              content="Plan weekend outing Plan weekend outing."
-              date=" Mon, Mar 05"
-              priorityColor="red.300"
-              isCompleted
-            />
-            <TodoItem
-              content="Wash clothes"
-              date="Mon, Mar 05"
-              priorityColor="green.300"
-            />
-            <TodoItem
-              content="Walk 10 kilometers"
-              date=" Mon, Mar 05"
-              priorityColor="orange.300"
-            />
+            {data?.map((todo) => (
+              <MotionBox
+                key={todo.id}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+              >
+                <TodoItem
+                  content={todo.content}
+                  date={dayjs(todo.createdAt).format("dddd, MMMM D")}
+                  priorityColor={colorMapper[todo.priority]}
+                  isCompleted={todo.isCompleted}
+                />
+              </MotionBox>
+            ))}
+            {isLoading && <TodoSkeletonLoaders />}
           </Stack>
         </Flex>
       </Flex>

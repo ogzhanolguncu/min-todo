@@ -15,7 +15,7 @@ export const TodoItem = ({
   isCompleted = false,
 }: Props) => {
   return (
-    <Flex align="center" gap="1rem">
+    <Flex align="center" gap="1rem" transition="opacity 0.4s ease">
       <Box
         width="45px"
         height="45px"
