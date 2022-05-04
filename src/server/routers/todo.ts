@@ -1,8 +1,27 @@
 import { prisma } from "@app/db/client";
+import { z } from "zod";
 import { createRouter } from "../context";
+export { Priority } from "@prisma/client";
 
-export const todoRouter = createRouter().query("get-all-todos", {
-	async resolve() {
-		return await prisma.todo.findMany();
-	},
-});
+export const todoRouter = createRouter()
+  .query("get-all-todos", {
+    async resolve() {
+      return await prisma.todo.findMany();
+    },
+  })
+  .mutation("add-todo", {
+    input: z.object({
+      content: z.string().min(1).max(100),
+      priority: z.enum(["GREEN", "RED", "ORANGE"]),
+    }),
+    async resolve({ input }) {
+      console.log(input);
+      const post = await prisma.todo.create({
+        data: {
+          content: input.content,
+          priority: input.priority,
+        },
+      });
+      return post;
+    },
+  });
