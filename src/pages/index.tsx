@@ -1,6 +1,8 @@
+import TodoInputGroup from "@app/components/TodoInputGroup";
 import { TodoItem } from "@app/components/TodoItem";
 import {
   Box,
+  Button,
   Center,
   Flex,
   Heading,
@@ -8,6 +10,7 @@ import {
   Input,
   Stack,
   Text,
+  VStack,
 } from "@chakra-ui/react";
 import React from "react";
 import { trpc } from "../utils/trpc";
@@ -30,7 +33,7 @@ export default function Home() {
       <Flex
         flexDir="column"
         alignItems="flex-start"
-        padding="2rem"
+        padding="3rem"
         border="3px solid transparent"
         boxShadow="8px 8px #8080805e"
         borderRadius="10px"
@@ -38,21 +41,7 @@ export default function Home() {
         backgroundColor="#e9f5f3"
       >
         <Flex gap="0.5rem" flexDirection="column">
-          <Input
-            variant="flushed"
-            placeholder="Plan weekend outing"
-            fontSize="xl"
-            mb="7rem"
-            color="gray.600"
-            borderBottomColor="gray.500"
-            borderBottom="2px solid"
-            _focus={{
-              borderBottomColor: "gray.800",
-            }}
-            _placeholder={{
-              color: "gray.500",
-            }}
-          />
+          <TodoInputGroup />
           <Heading fontSize="6xl">My Tasks</Heading>
           <Text color="#5f708a" fontWeight="medium" fontSize="2xl" mb="2rem">
             1 of 4 Completed
