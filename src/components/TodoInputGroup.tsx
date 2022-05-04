@@ -6,7 +6,7 @@ import { Priority } from "@prisma/client";
 import useKey from "../hooks/useKey";
 
 const TodoInputGroup = () => {
-  const addTodo = trpc.useMutation("add-todo");
+  const addTodo = trpc.useMutation("todo.add-todo");
 
   const [content, setContent] = useState("");
   const [priority, setPriority] = useState<Priority>();

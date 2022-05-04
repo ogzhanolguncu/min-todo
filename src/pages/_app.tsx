@@ -1,42 +1,48 @@
-import React from "react";
-import { withTRPC } from "@trpc/next";
-import { AppType } from "next/dist/shared/lib/utils";
-import { AppRouter } from "@app/server/routers";
 import { ChakraProvider } from "@chakra-ui/react";
+import { httpBatchLink } from "@trpc/client/links/httpBatchLink";
+import { loggerLink } from "@trpc/client/links/loggerLink";
+import { withTRPC } from "@trpc/next";
+import { AppProps } from "next/app";
+import superjson from "superjson";
 import customTheme from "@app/styles";
+import { AppRouter } from "@app/server/routers";
 
-const MyApp: AppType = ({ Component, pageProps }) => {
-  return (
-    <ChakraProvider theme={customTheme}>
-      <Component {...pageProps} />
-    </ChakraProvider>
-  );
-};
+const MyApp = ({ Component, pageProps }: AppProps) => (
+  <ChakraProvider theme={customTheme}>
+    <Component {...pageProps} />
+  </ChakraProvider>
+);
+
+function getBaseUrl() {
+  if (typeof window !== "undefined") {
+    return "";
+  }
+  if (process.env.VERCEL_URL) {
+    return `https://${process.env.VERCEL_URL}`;
+  }
+
+  if (process.env.RENDER_INTERNAL_HOSTNAME) {
+    return `http://${process.env.RENDER_INTERNAL_HOSTNAME}:${process.env.PORT}`;
+  }
+
+  return `http://localhost:${process.env.PORT ?? 3000}`;
+}
 
 export default withTRPC<AppRouter>({
-  config({ ctx }) {
-    if (typeof window !== "undefined") {
-      return {
-        url: "/api/trpc",
-      };
-    }
-
-    const ONE_DAY_SECONDS = 60 * 60 * 24;
-    ctx?.res?.setHeader(
-      "Cache-Control",
-      `s-maxage=1, stale-while-revalidate=${ONE_DAY_SECONDS}`
-    );
-
-    const url = process.env.VERCEL_URL
-      ? `https://${process.env.VERCEL_URL}/api/trpc`
-      : "http://localhost:3000/api/trpc";
-
+  config() {
     return {
-      url,
-      headers: {
-        "x-ssr": "1",
-      },
+      links: [
+        loggerLink({
+          enabled: (opts) =>
+            process.env.NODE_ENV === "development" ||
+            (opts.direction === "down" && opts.result instanceof Error),
+        }),
+        httpBatchLink({
+          url: `${getBaseUrl()}/api/trpc`,
+        }),
+      ],
+
+      transformer: superjson,
     };
   },
-  ssr: false,
 })(MyApp);

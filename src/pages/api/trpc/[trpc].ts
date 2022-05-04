@@ -1,9 +1,22 @@
-import * as trpcNext from "@trpc/server/adapters/next";
-import { createContext } from "../../../server/context";
-import { appRouter } from '../../../server/routers/index';
 
-// export API handler
+import * as trpcNext from "@trpc/server/adapters/next";
+import { appRouter } from '../../../server/routers';
+import { createContext } from '../../../server/context';
+
 export default trpcNext.createNextApiHandler({
-	router: appRouter,
-	createContext: createContext,
+  router: appRouter,
+  
+  createContext,
+ 
+  onError({ error }) {
+    if (error.code === "INTERNAL_SERVER_ERROR") {
+      // send to bug reporting
+      console.error("Something went wrong", error);
+    }
+  },
+
+  batching: {
+    enabled: true,
+  },
+
 });

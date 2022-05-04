@@ -1,13 +1,16 @@
 import * as trpc from "@trpc/server";
 import * as trpcNext from "@trpc/server/adapters/next";
 
-// The app's context - is generated for each incoming request
-export async function createContext(opts?: trpcNext.CreateNextContextOptions) {
-	return { res: opts?.res, req: opts?.req };
-}
-type Context = trpc.inferAsyncReturnType<typeof createContext>;
+interface CreateContextOptions {}
 
-// Helper function to create a router with your app's context
-export function createRouter() {
-	return trpc.router<Context>();
+export async function createContextInner(_opts: CreateContextOptions) {
+  return {};
+}
+
+export type Context = trpc.inferAsyncReturnType<typeof createContextInner>;
+
+export async function createContext(
+  opts: trpcNext.CreateNextContextOptions
+): Promise<Context> {
+  return await createContextInner({});
 }

@@ -1,7 +1,6 @@
-import { prisma } from "@app/db/client";
 import { z } from "zod";
-import { createRouter } from "../context";
-export { Priority } from "@prisma/client";
+import { createRouter } from "../createRouter";
+import { prisma } from "../prisma";
 
 export const todoRouter = createRouter()
   .query("get-all-todos", {
