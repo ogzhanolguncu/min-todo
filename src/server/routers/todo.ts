@@ -34,4 +34,19 @@ export const todoRouter = createRouter()
         },
       });
     },
+  })
+  .mutation("complete", {
+    input: z.object({
+      id: z.string().nonempty(),
+    }),
+    async resolve({ input }) {
+      await prisma.todo.update({
+        where: {
+          id: input.id,
+        },
+        data: {
+          isCompleted: true,
+        },
+      });
+    },
   });

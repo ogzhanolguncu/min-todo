@@ -24,9 +24,18 @@ export const TodoItem = ({
       await utils.invalidateQueries(["todo.get-all"]);
     },
   });
+  const completeTodo = trpc.useMutation("todo.complete", {
+    async onSuccess() {
+      await utils.invalidateQueries(["todo.get-all"]);
+    },
+  });
 
   const handleDeleteTodo = async () => {
     await deleteTodo.mutateAsync({ id });
+  };
+
+  const handleCopleteTodo = async () => {
+    await completeTodo.mutateAsync({ id });
   };
 
   return (
@@ -39,6 +48,7 @@ export const TodoItem = ({
           backgroundSize="contain"
           backgroundImage={isCompleted ? "'/double-tick.png'" : "unset"}
           backgroundColor={isCompleted ? "purple.300" : priorityColor}
+          onClick={handleCopleteTodo}
           transition="background-color 0.4s ease"
           _hover={{
             backgroundImage: "/double-tick.png",
