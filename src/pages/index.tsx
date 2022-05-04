@@ -46,7 +46,7 @@ export default function Home() {
         width="750px"
         backgroundColor="#e9f5f3"
       >
-        <Flex gap="2rem" flexDirection="column">
+        <Flex gap="2rem" flexDirection="column" mb='2rem'>
           <TodoInputGroup />
           <TodoTitle />
           <Stack w="100%" gap="0.5rem" fontWeight="medium">
