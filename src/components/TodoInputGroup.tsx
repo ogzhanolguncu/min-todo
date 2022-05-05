@@ -118,7 +118,7 @@ const TodoInputGroup = () => {
             })}
           </Flex>
           <Text color="red.300" fontWeight="medium" height="20px">
-            {errors.priority?.message && "You must choose one of above!"}
+            {errors.priority?.message && "Pick a box!"}
           </Text>
         </Flex>
       </Flex>
