@@ -15,6 +15,7 @@
 		"@chakra-ui/react": "^1.8.8",
 		"@emotion/react": "^11.9.0",
 		"@emotion/styled": "^11.8.1",
+		"@hookform/resolvers": "^2.8.8",
 		"@prisma/client": "^3.3.0",
 		"@trpc/client": "^9.23.2",
 		"@trpc/next": "^9.23.2",

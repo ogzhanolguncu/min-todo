@@ -1,6 +1,7 @@
 import { z } from "zod";
 import { createRouter } from "../createRouter";
 import { prisma } from "../prisma";
+import { sharedAddValidation } from '../../shared/index';
 
 export const todoRouter = createRouter()
   .query("get-all", {
@@ -9,10 +10,7 @@ export const todoRouter = createRouter()
     },
   })
   .mutation("add", {
-    input: z.object({
-      content: z.string().min(1).max(100),
-      priority: z.enum(["GREEN", "RED", "ORANGE"]),
-    }),
+    input: sharedAddValidation,
     async resolve({ input }) {
       const post = await prisma.todo.create({
         data: {
