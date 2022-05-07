@@ -11,11 +11,13 @@ export const todoRouter = createRouter()
   })
   .mutation("add", {
     input: sharedAddValidation,
-    async resolve({ input }) {
+    async resolve({ ctx, input }) {
+      if (!ctx.req?.auth?.userId) return;
       const post = await prisma.todo.create({
         data: {
           content: input.content,
           priority: input.priority,
+          ownerId: ctx.req?.auth?.userId,
         },
       });
       return post;

@@ -39,7 +39,11 @@ export const TodoItem = ({
   };
 
   return (
-    <Flex justifyContent="space-between" transition="opacity 0.4s ease">
+    <Flex
+      justifyContent="space-between"
+      transition="opacity 0.4s ease"
+      alignItems="center"
+    >
       <Flex gap="0.8rem" align="center">
         <Box
           width="40px"
@@ -57,8 +61,8 @@ export const TodoItem = ({
         />
         <Flex flexDirection="column">
           <Text
-            fontSize="2xl"
-            noOfLines={1}
+            fontSize={["xl", "xl", "2xl", "2xl"]}
+            noOfLines={2}
             textDecorationLine={isCompleted ? "line-through" : "unset"}
           >
             {content}
@@ -73,13 +77,14 @@ export const TodoItem = ({
         </Flex>
       </Flex>
       <Box
-        width="65px"
-        height="65px"
+        width={["80px", "80px", "65px", "65px"]}
+        height={["80px", "80px", "65px", "65px"]}
         borderRadius="10px"
         backgroundSize="contain"
         backgroundImage="/trash1.png"
         cursor="pointer"
         transition="width 0.1s ease"
+        bgRepeat="no-repeat"
         onClick={handleDeleteTodo}
         _hover={{
           width: "67px",

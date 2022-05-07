@@ -32,6 +32,7 @@ export default function Home() {
   return (
     <Center
       height="100vh"
+      width="100%"
       color="gray.800"
       backgroundColor="hsl(0deg 50% 97%)"
       flexDir="column"
@@ -41,7 +42,11 @@ export default function Home() {
         letterSpacing: "0.1px",
       }}
     >
-      <Flex width="750px" flexDir="column" gap="2rem">
+      <Flex
+        width={["350px", "350px", "750px", "750px"]}
+        flexDir="column"
+        gap="2rem"
+      >
         <Flex
           align="center"
           justifyContent="space-between"
@@ -52,8 +57,7 @@ export default function Home() {
           borderRadius="10px"
         >
           <Text
-            textAlign="end"
-            fontSize="2xl"
+            fontSize={["lg", "lg", "2xl", "2xl"]}
             fontWeight="600"
             letterSpacing="0.5px"
           >
@@ -66,11 +70,13 @@ export default function Home() {
             hasArrow
             color="gray.800"
             borderRadius="5px"
-            padding='0.5rem'
-            fontWeight='500'
-            fontSize='lg'
+            padding="0.5rem"
+            fontWeight="500"
+            fontSize="lg"
           >
             <Image
+              width="80px"
+              height="80px"
               src="/logout.png"
               alt="log-out"
               cursor="pointer"
@@ -85,7 +91,7 @@ export default function Home() {
           border="3px solid transparent"
           boxShadow="8px 8px #8080805e"
           borderRadius="10px"
-          width="750px"
+          width={["350px", "350px", "750px", "750px"]}
           backgroundColor="#d2fff773"
         >
           <Flex gap="2rem" flexDirection="column" mb="2rem">

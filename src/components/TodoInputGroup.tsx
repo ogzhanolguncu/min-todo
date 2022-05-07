@@ -33,8 +33,8 @@ const TodoInputGroup = () => {
 
   const onSubmit: SubmitHandler<Form> = async (data, event) => {
     await addTodo.mutateAsync(data);
-    event?.target.reset()
-    reset()
+    event?.target.reset();
+    reset();
   };
 
   return (
@@ -43,7 +43,8 @@ const TodoInputGroup = () => {
         alignItems="flex-start"
         justifyContent="space-between"
         mb="4rem"
-        width="650px"
+        width={["250px", "250px", "650px", "650px"]}
+        flexDirection={["column", "column", "row", "row"]}
       >
         <Controller
           name="content"
@@ -61,7 +62,6 @@ const TodoInputGroup = () => {
                 }
                 borderBottom="2px solid"
                 onChange={field.onChange}
-                width="300px"
                 _focus={{
                   borderBottomColor: `${
                     errors.content?.message ? "red.300" : "gray.400"
