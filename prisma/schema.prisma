@@ -17,7 +17,9 @@ model Todo {
   content     String   @db.VarChar(255)
   isCompleted Boolean  @default(false)
   priority    Priority @default(GREEN)
-  ownerId     String   
+  ownerId     String
+
+  @@unique([id, ownerId])
 }
 
 enum Priority {

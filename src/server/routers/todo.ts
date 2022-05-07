@@ -5,19 +5,28 @@ import { sharedAddValidation } from "../../shared/index";
 
 export const todoRouter = createRouter()
   .query("get-all", {
-    async resolve() {
-      return await prisma.todo.findMany();
+    async resolve({ ctx }) {
+      const userId = ctx.req?.auth?.userId;
+      if (!userId) return;
+
+      return await prisma.todo.findMany({
+        where: {
+          ownerId: userId,
+        },
+      });
     },
   })
   .mutation("add", {
     input: sharedAddValidation,
     async resolve({ ctx, input }) {
-      if (!ctx.req?.auth?.userId) return;
+      const userId = ctx.req?.auth?.userId;
+      if (!userId) return;
+
       const post = await prisma.todo.create({
         data: {
           content: input.content,
           priority: input.priority,
-          ownerId: ctx.req?.auth?.userId,
+          ownerId: userId,
         },
       });
       return post;
@@ -27,10 +36,16 @@ export const todoRouter = createRouter()
     input: z.object({
       id: z.string().nonempty(),
     }),
-    async resolve({ input }) {
+    async resolve({ ctx, input }) {
+      const userId = ctx.req?.auth?.userId;
+      if (!userId) return;
+
       await prisma.todo.delete({
         where: {
-          id: input.id,
+          id_ownerId: {
+            id: input.id,
+            ownerId: userId,
+          },
         },
       });
     },
@@ -39,10 +54,16 @@ export const todoRouter = createRouter()
     input: z.object({
       id: z.string().nonempty(),
     }),
-    async resolve({ input }) {
+    async resolve({ ctx, input }) {
+      const userId = ctx.req?.auth?.userId;
+      if (!userId) return;
+
       await prisma.todo.update({
         where: {
-          id: input.id,
+          id_ownerId: {
+            id: input.id,
+            ownerId: userId,
+          },
         },
         data: {
           isCompleted: true,
