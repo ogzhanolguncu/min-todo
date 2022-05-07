@@ -8,7 +8,7 @@
     "lint": "next lint",
     "build:1-generate": "prisma generate",
     "build:3-build": "next build",
-    "build": "build:1-generate && build:3-build"
+    "build": "npm run build:1-generate && npm run build:3-build"
   },
   "dependencies": {
     "@chakra-ui/react": "^1.8.8",
