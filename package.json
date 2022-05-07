@@ -13,6 +13,7 @@
 	},
 	"dependencies": {
 		"@chakra-ui/react": "^1.8.8",
+		"@clerk/nextjs": "^3.6.0",
 		"@emotion/react": "^11.9.0",
 		"@emotion/styled": "^11.8.1",
 		"@hookform/resolvers": "^2.8.8",

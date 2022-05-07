@@ -4,13 +4,27 @@ import { loggerLink } from "@trpc/client/links/loggerLink";
 import { withTRPC } from "@trpc/next";
 import { AppProps } from "next/app";
 import superjson from "superjson";
+import {
+  ClerkProvider,
+  RedirectToSignIn,
+  SignedIn,
+  SignedOut,
+} from "@clerk/nextjs";
+
 import customTheme from "@app/styles";
 import { AppRouter } from "@app/server/routers";
 
 const MyApp = ({ Component, pageProps }: AppProps) => (
-  <ChakraProvider theme={customTheme}>
-    <Component {...pageProps} />
-  </ChakraProvider>
+  <ClerkProvider {...pageProps}>
+    <ChakraProvider theme={customTheme}>
+      <SignedIn>
+        <Component {...pageProps} />
+      </SignedIn>
+      <SignedOut>
+        <RedirectToSignIn />
+      </SignedOut>
+    </ChakraProvider>
+  </ClerkProvider>
 );
 
 function getBaseUrl() {
