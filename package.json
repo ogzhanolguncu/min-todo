@@ -1,44 +1,43 @@
 {
-	"name": "min-todo",
-	"version": "0.1.0",
-	"private": true,
-	"scripts": {
-		"dev": "next dev",
-		"start": "next start",
-		"lint": "next lint",
-		"build:1-generate": "prisma generate",
-		"build:2-migrate": "prisma migrate deploy",
-		"build:3-build": "next build",
-		"build": "run-s build:*"
-	},
-	"dependencies": {
-		"@chakra-ui/react": "^1.8.8",
-		"@clerk/nextjs": "^3.6.0",
-		"@emotion/react": "^11.9.0",
-		"@emotion/styled": "^11.8.1",
-		"@hookform/resolvers": "^2.8.8",
-		"@prisma/client": "^3.3.0",
-		"@trpc/client": "^9.23.2",
-		"@trpc/next": "^9.23.2",
-		"@trpc/react": "^9.23.2",
-		"@trpc/server": "^9.23.2",
-		"dayjs": "^1.11.1",
-		"framer-motion": "^6.3.3",
-		"next": "12.1.5",
-		"react": "18.1.0",
-		"react-dom": "18.1.0",
-		"react-hook-form": "^7.30.0",
-		"react-query": "^3.38.1",
-		"superjson": "^1.9.1",
-		"zod": "^3.14.4"
-	},
-	"devDependencies": {
-		"@types/node": "17.0.31",
-		"@types/react": "18.0.8",
-		"@types/react-dom": "18.0.3",
-		"eslint": "8.14.0",
-		"eslint-config-next": "12.1.5",
-		"prisma": "^3.13.0",
-		"typescript": "4.6.4"
-	}
+  "name": "min-todo",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "start": "next start",
+    "lint": "next lint",
+    "build:1-generate": "prisma generate",
+    "build:3-build": "next build",
+    "build": "build:1-generate && build:3-build"
+  },
+  "dependencies": {
+    "@chakra-ui/react": "^1.8.8",
+    "@clerk/nextjs": "^3.6.0",
+    "@emotion/react": "^11.9.0",
+    "@emotion/styled": "^11.8.1",
+    "@hookform/resolvers": "^2.8.8",
+    "@prisma/client": "^3.3.0",
+    "@trpc/client": "^9.23.2",
+    "@trpc/next": "^9.23.2",
+    "@trpc/react": "^9.23.2",
+    "@trpc/server": "^9.23.2",
+    "dayjs": "^1.11.1",
+    "framer-motion": "^6.3.3",
+    "next": "12.1.5",
+    "react": "18.1.0",
+    "react-dom": "18.1.0",
+    "react-hook-form": "^7.30.0",
+    "react-query": "^3.38.1",
+    "superjson": "^1.9.1",
+    "zod": "^3.14.4"
+  },
+  "devDependencies": {
+    "@types/node": "17.0.31",
+    "@types/react": "18.0.8",
+    "@types/react-dom": "18.0.3",
+    "eslint": "8.14.0",
+    "eslint-config-next": "12.1.5",
+    "prisma": "^3.13.0",
+    "typescript": "4.6.4"
+  }
 }
