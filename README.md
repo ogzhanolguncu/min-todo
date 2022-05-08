@@ -26,8 +26,13 @@ By the way, if you are deploying on Vercel, don't forget to add secrets to Verce
 
 ## Tech Stack
 
-tRPC, NextJS, Typescript, PlanetScale Prisma, ChakraUI and Clerk
+- tRPC
+- NextJS
+- Typescript
+- PlanetScale
+- Prisma
+- ChakraUI and Clerk
 
 ## Feedback
 
-If you have any feedback, please reach out to me or feel free to open up a issue.
+If you have any feedback, please reach out to me or feel free to open up an issue.
