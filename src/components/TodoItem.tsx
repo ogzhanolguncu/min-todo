@@ -57,6 +57,10 @@ export const TodoItem = ({
           _hover={{
             backgroundImage: "/double-tick.png",
             backgroundColor: "purple.300",
+            _hover: {
+              backgroundImage: "/undo.png",
+              backgroundColor: "purple.300",
+            },
           }}
         />
         <Flex flexDirection="column">

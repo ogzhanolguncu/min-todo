@@ -58,6 +58,14 @@ export const todoRouter = createRouter()
       const userId = ctx.req?.auth?.userId;
       if (!userId) return;
 
+      const todo = await prisma.todo.findUnique({
+        where: {
+          id_ownerId: {
+            id: input.id,
+            ownerId: userId,
+          },
+        },
+      });
       await prisma.todo.update({
         where: {
           id_ownerId: {
@@ -66,8 +74,8 @@ export const todoRouter = createRouter()
           },
         },
         data: {
-          isCompleted: true,
-        },
+          isCompleted: !todo?.isCompleted
+        }
       });
     },
   });
