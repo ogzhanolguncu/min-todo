@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, Flex, Text } from "@chakra-ui/react";
+import { Box, Flex, Text, Image } from "@chakra-ui/react";
 
 import { trpc } from "@app/utils/trpc";
 
@@ -44,28 +44,29 @@ export const TodoItem = ({
       transition="opacity 0.4s ease"
       alignItems="center"
     >
-      <Flex gap="0.8rem" align="center">
-        <Box
-          width="40px"
-          height="40px"
+      <Flex gap="0.4rem" alignItems="center">
+        <Image
+          width={["40px", "40px", "60px", "60px"]}
+          height={["40px", "40px", "60px", "60px"]}
           borderRadius="10px"
           backgroundSize="contain"
-          backgroundImage={isCompleted ? "'/double-tick.png'" : "unset"}
+          alt="priority"
+          src={isCompleted ? "/double-tick.png" : "/document.png"}
           backgroundColor={isCompleted ? "purple.300" : priorityColor}
+          backgroundRepeat="no-repeat"
+          backgroundPosition="center"
           onClick={handleCopleteTodo}
           transition="background-color 0.4s ease"
           _hover={{
-            backgroundImage: "/double-tick.png",
             backgroundColor: "purple.300",
-            _hover: {
-              backgroundImage: "/undo.png",
-              backgroundColor: "purple.300",
-            },
+          }}
+          _active={{
+            backgroundColor: priorityColor,
           }}
         />
         <Flex flexDirection="column">
           <Text
-            fontSize={["xl", "xl", "2xl", "2xl"]}
+            fontSize={["md", "lg", "2xl", "2xl"]}
             noOfLines={2}
             textDecorationLine={isCompleted ? "line-through" : "unset"}
           >
@@ -80,20 +81,16 @@ export const TodoItem = ({
           </Text>
         </Flex>
       </Flex>
-      <Box
-        width={["80px", "80px", "65px", "65px"]}
-        height={["80px", "80px", "65px", "65px"]}
+      <Image
+        alt="thrash"
+        width={["50px", "50px", "80px", "80px"]}
+        height={["50px", "50px", "80px", "80px"]}
         borderRadius="10px"
         backgroundSize="contain"
-        backgroundImage="/trash1.png"
+        src="/trash1.png"
         cursor="pointer"
-        transition="width 0.1s ease"
         bgRepeat="no-repeat"
         onClick={handleDeleteTodo}
-        _hover={{
-          width: "67px",
-          height: "67px",
-        }}
       />
     </Flex>
   );

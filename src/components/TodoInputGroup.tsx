@@ -40,7 +40,7 @@ const TodoInputGroup = () => {
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <Flex
-        alignItems="flex-start"
+        alignItems="center"
         justifyContent="space-between"
         mb="4rem"
         width={["250px", "250px", "650px", "650px"]}
@@ -55,7 +55,7 @@ const TodoInputGroup = () => {
                 ref={inputRef}
                 variant="flushed"
                 placeholder="Plan weekend outing"
-                fontSize="xl"
+                fontSize="2xl"
                 color="gray.600"
                 borderBottomColor={
                   errors.content?.message ? "red.300" : "gray.400"
@@ -78,8 +78,11 @@ const TodoInputGroup = () => {
           )}
         />
 
-        <Flex flexDirection="column" gap="0.5rem">
-          <Flex gap="0.5rem" justifyContent="flex-end">
+        <Flex
+          flexDirection="column"
+          gap="0.5rem"
+        >
+          <Flex gap="1rem">
             {Object.entries(colorMapper).map(([key]) => {
               return (
                 <Controller
@@ -92,8 +95,8 @@ const TodoInputGroup = () => {
                         field.onChange(key);
                         inputRef.current?.focus();
                       }}
-                      width="45px"
-                      height="45px"
+                      width="50px"
+                      height="50px"
                       borderRadius="10px"
                       backgroundSize="contain"
                       backgroundColor={

@@ -31,16 +31,16 @@ export default function Home() {
 
   return (
     <Center
-      height="100vh"
+      height="100%"
       width="100%"
       color="gray.800"
-      backgroundColor="hsl(0deg 50% 97%)"
       flexDir="column"
       lineHeight="1.7"
       css={{
         wordSpacing: "1.2px",
         letterSpacing: "0.1px",
       }}
+      padding="2rem"
     >
       <Flex
         width={["350px", "350px", "750px", "750px"]}
