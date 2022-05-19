@@ -1,4 +1,4 @@
-# Minimalistic ToDo App with tRPC, NextJS, Typescript, PlanetScale Prisma, Chakra UI and Clerk
+# Minimalistic ToDo App with tRPC, NextJS, Typescript, PlanetScale, Prisma, Chakra UI and Clerk
 
 Idea behind this project to create a minimalistic todo app with least amount of clutter with latest technologies.
 Only has priority setting, input field for todo, complete and delete.
