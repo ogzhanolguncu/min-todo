@@ -18,7 +18,7 @@ const UserInfo = () => {
     >
       <Text
         fontSize={["lg", "lg", "2xl", "2xl"]}
-        fontWeight="600"
+        fontWeight="500"
         letterSpacing="0.5px"
       >
         {user?.fullName}

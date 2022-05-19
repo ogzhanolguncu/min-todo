@@ -1,5 +1,9 @@
 import React from "react";
-import { Box, Flex, Text, Image } from "@chakra-ui/react";
+import {
+  Flex,
+  Text,
+  Image,
+} from "@chakra-ui/react";
 
 import { trpc } from "@app/utils/trpc";
 
@@ -91,6 +95,9 @@ export const TodoItem = ({
         cursor="pointer"
         bgRepeat="no-repeat"
         onClick={handleDeleteTodo}
+        _hover={{
+          transform: "rotate(-3deg)",
+        }}
       />
     </Flex>
   );
