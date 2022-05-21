@@ -4,7 +4,7 @@ const customTheme = extendTheme({
   styles: {
     global: {
       body: {
-        bg: "hsl(0deg 50% 97%)",
+        bg: "hsl(10deg 33% 87%)",
       },
     },
   },

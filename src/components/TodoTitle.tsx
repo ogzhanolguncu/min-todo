@@ -8,16 +8,16 @@ const TodoTitle = () => {
   const completedTodoCount = data?.filter((todo) => todo.isCompleted).length;
 
   return (
-    <Flex flexDirection="column" gap="0.5rem">
+    <Flex flexDirection="column" gap="0.5rem" my="2rem">
       <Heading fontSize="6xl">My Tasks</Heading>
       <Skeleton
         isLoaded={!isFetching}
         height="30px"
-        startColor="#C7EDE6"
-        endColor="#C7EDE6"
+        startColor="#e9c7ed"
+        endColor="#dbc4da"
         borderRadius="10px"
       >
-        <Text color="#5f708a" fontWeight="medium" fontSize="2xl" mb="2rem" >
+        <Text color="#5f708a" fontWeight="medium" fontSize="2xl" mb="2rem">
           {`${completedTodoCount} of ${data?.length} Completed`}
         </Text>
       </Skeleton>

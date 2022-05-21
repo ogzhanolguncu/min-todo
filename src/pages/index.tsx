@@ -41,7 +41,7 @@ export default function Home() {
           alignItems="flex-start"
           padding="3rem"
           border="3px solid transparent"
-          boxShadow="8px 8px #8080805e"
+          boxShadow="8px 8px #bfadad5e"
           borderRadius="10px"
           width={["350px", "350px", "750px", "750px"]}
           backgroundColor="#d2fff773"

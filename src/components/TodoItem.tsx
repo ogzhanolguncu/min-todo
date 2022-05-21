@@ -48,13 +48,13 @@ export const TodoItem = ({
       transition="opacity 0.4s ease"
       alignItems="center"
     >
-      <Flex gap="0.4rem" alignItems="center">
+      <Flex gap="0.8rem" alignItems="center">
         <Image
           width={["40px", "40px", "60px", "60px"]}
           height={["40px", "40px", "60px", "60px"]}
           borderRadius="10px"
-          backgroundSize="contain"
           alt="priority"
+          backgroundSize="contain"
           src={isCompleted ? "/double-tick.png" : "/document.png"}
           backgroundColor={isCompleted ? "purple.300" : priorityColor}
           backgroundRepeat="no-repeat"

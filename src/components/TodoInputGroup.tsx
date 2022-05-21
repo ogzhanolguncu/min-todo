@@ -1,5 +1,5 @@
 import React, { useRef } from "react";
-import { Flex, Input, Text, Button } from "@chakra-ui/react";
+import { Flex, Input, Text, Image, Skeleton } from "@chakra-ui/react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Priority } from "@prisma/client";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
@@ -17,7 +17,7 @@ const TodoInputGroup = () => {
   const {
     control,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isSubmitting },
     reset,
   } = useForm<Form>({
     resolver: zodResolver(sharedAddValidation),
@@ -37,12 +37,22 @@ const TodoInputGroup = () => {
     reset();
   };
 
+  if (isSubmitting) {
+    return (
+      <Skeleton
+        height="50px"
+        startColor="#e9c7ed"
+        endColor="#dbc4da"
+        borderRadius="10px"
+      />
+    );
+  }
+
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <Flex
         alignItems="center"
         justifyContent="space-between"
-        mb="4rem"
         width={["250px", "250px", "650px", "650px"]}
         flexDirection={["column", "column", "row", "row"]}
       >
@@ -54,7 +64,7 @@ const TodoInputGroup = () => {
               <Input
                 ref={inputRef}
                 variant="flushed"
-                placeholder="Plan weekend outing"
+                placeholder="e.g: Plan weekend outing"
                 fontSize="2xl"
                 color="gray.600"
                 borderBottomColor={
@@ -81,8 +91,12 @@ const TodoInputGroup = () => {
         <Flex
           flexDirection="column"
           gap="0.5rem"
+          w={["100%", "100%", "unset", "unset"]}
         >
-          <Flex gap="1rem">
+          <Flex
+            gap="1rem"
+            justifyContent={["flex-start", "flex-end", "flex-end", "flex-end"]}
+          >
             {Object.entries(colorMapper).map(([key]) => {
               return (
                 <Controller
@@ -90,7 +104,14 @@ const TodoInputGroup = () => {
                   name="priority"
                   control={control}
                   render={({ field }) => (
-                    <Button
+                    <Image
+                      alt="priority"
+                      backgroundSize="contain"
+                      src={"/document.png"}
+                      backgroundRepeat="no-repeat"
+                      backgroundPosition="center"
+                      border="3px solid transparent"
+                      boxShadow="8px 8px #8080805e"
                       onClick={() => {
                         field.onChange(key);
                         inputRef.current?.focus();
@@ -98,14 +119,10 @@ const TodoInputGroup = () => {
                       width="50px"
                       height="50px"
                       borderRadius="10px"
-                      backgroundSize="contain"
                       backgroundColor={
                         field.value === key
                           ? `${key.toLowerCase().toString()}.400`
                           : `${key.toLowerCase().toString()}.300`
-                      }
-                      backgroundImage={
-                        field.value === key ? "'/double-tick.png'" : "unset"
                       }
                       transition="background-color 0.4s ease"
                       _hover={{

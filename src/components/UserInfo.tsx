@@ -12,14 +12,15 @@ const UserInfo = () => {
       justifyContent="space-between"
       px="3rem"
       border="3px solid transparent"
-      boxShadow="8px 8px #8080805e"
+      boxShadow="8px 8px #bfadad5e"
       backgroundColor="#d2fff773"
       borderRadius="10px"
     >
       <Text
         fontSize={["lg", "lg", "2xl", "2xl"]}
-        fontWeight="500"
         letterSpacing="0.5px"
+        color="#5f708a"
+        fontWeight="medium"
       >
         {user?.fullName}
       </Text>
