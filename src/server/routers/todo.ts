@@ -2,10 +2,13 @@ import { z } from "zod";
 import { createRouter } from "../createRouter";
 import { prisma } from "../prisma";
 import { sharedAddValidation } from "../../shared/index";
+// import { EmailScheduler } from "../utils/scheduler";
 
 export const todoRouter = createRouter()
   .query("get-all", {
     async resolve({ ctx }) {
+      // EmailScheduler.start();
+
       const userId = ctx.req?.auth?.userId;
       if (!userId) return;
 
@@ -74,8 +77,8 @@ export const todoRouter = createRouter()
           },
         },
         data: {
-          isCompleted: !todo?.isCompleted
-        }
+          isCompleted: !todo?.isCompleted,
+        },
       });
     },
   });
