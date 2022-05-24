@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Box, Center, Flex, Stack, Text } from "@chakra-ui/react";
+import { Box, Center, Divider, Flex, Stack, Text } from "@chakra-ui/react";
 import dayjs from "dayjs";
 import { motion } from "framer-motion";
 
@@ -49,7 +49,7 @@ export default function Home() {
           <Flex gap="2rem" flexDirection="column" mb="2rem">
             <TodoInputGroup />
             <TodoTitle />
-            <Stack w="100%" gap="0.5rem" fontWeight="medium">
+            <Stack w="100%" gap="1rem" fontWeight="medium">
               {isFetched && !data?.length && (
                 <Text fontSize="2xl">No todos yet.</Text>
               )}
@@ -67,6 +67,7 @@ export default function Home() {
                     isCompleted={todo.isCompleted}
                     id={todo.id}
                   />
+                  <Divider height='3px' backgroundColor='purple.400'/>
                 </MotionBox>
               ))}
               {isLoading && <TodoSkeletonLoaders />}

@@ -1,11 +1,8 @@
 import React from "react";
-import {
-  Flex,
-  Text,
-  Image,
-} from "@chakra-ui/react";
+import { Flex, Text, Image, HStack } from "@chakra-ui/react";
 
 import { trpc } from "@app/utils/trpc";
+import ClockPopover from "./ClockPopover";
 
 type Props = {
   content: string;
@@ -45,10 +42,11 @@ export const TodoItem = ({
   return (
     <Flex
       justifyContent="space-between"
+      flexDirection={["column", "column", "row", "row"]}
       transition="opacity 0.4s ease"
       alignItems="center"
     >
-      <Flex gap="0.8rem" alignItems="center">
+      <Flex gap="0.8rem" alignItems="center" w="100%">
         <Image
           width={["40px", "40px", "60px", "60px"]}
           height={["40px", "40px", "60px", "60px"]}
@@ -85,20 +83,23 @@ export const TodoItem = ({
           </Text>
         </Flex>
       </Flex>
-      <Image
-        alt="thrash"
-        width={["50px", "50px", "80px", "80px"]}
-        height={["50px", "50px", "80px", "80px"]}
-        borderRadius="10px"
-        backgroundSize="contain"
-        src="/trash1.png"
-        cursor="pointer"
-        bgRepeat="no-repeat"
-        onClick={handleDeleteTodo}
-        _hover={{
-          transform: "rotate(-3deg)",
-        }}
-      />
+      <HStack justifyContent="center" ml={[0, 0, 0, "4rem"]}>
+        <Image
+          alt="thrash"
+          width={["60px", "60px", "70px", "70px"]}
+          height={["60px", "60px", "70px", "70px"]}
+          borderRadius="10px"
+          backgroundSize="contain"
+          src="/trash2.png"
+          cursor="pointer"
+          bgRepeat="no-repeat"
+          onClick={handleDeleteTodo}
+          _hover={{
+            transform: "rotate(-3deg)",
+          }}
+        />
+        <ClockPopover />
+      </HStack>
     </Flex>
   );
 };
