@@ -3,11 +3,11 @@ const { worker_threads } = require("worker_threads");
 
 async function main() {
   const transporter = nodeMailer.createTransport({
-    host: "smtp.sendgrid.net",
+    host: "",
     port: 587,
     auth: {
       user: "apikey",
-      pass: "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",
+      pass: "",
     },
   });
 
