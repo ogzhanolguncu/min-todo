@@ -53,23 +53,28 @@ export default function Home() {
               {isFetched && !data?.length && (
                 <Text fontSize="2xl">No todos yet.</Text>
               )}
-              {data?.map((todo) => (
-                <MotionBox
-                  key={todo.id}
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                >
-                  <TodoItem
-                    content={todo.content}
-                    date={dayjs(todo.createdAt).format("dddd, MMMM D")}
-                    priorityColor={colorMapper[todo.priority]}
-                    isCompleted={todo.isCompleted}
-                    id={todo.id}
-                  />
-                  <Divider height='3px' backgroundColor='purple.400'/>
-                </MotionBox>
-              ))}
+              {data?.map((todo, index) => {
+                const isLast = data.length - 1 === index;
+                return (
+                  <MotionBox
+                    key={todo.id}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                  >
+                    <TodoItem
+                      content={todo.content}
+                      date={dayjs(todo.createdAt).format("dddd, MMMM D")}
+                      priorityColor={colorMapper[todo.priority]}
+                      isCompleted={todo.isCompleted}
+                      id={todo.id}
+                    />
+                    {!isLast && (
+                      <Divider height="3px" backgroundColor="purple.400" />
+                    )}
+                  </MotionBox>
+                );
+              })}
               {isLoading && <TodoSkeletonLoaders />}
             </Stack>
           </Flex>
