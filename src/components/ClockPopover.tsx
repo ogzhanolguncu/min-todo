@@ -1,3 +1,4 @@
+import React from "react";
 import {
   Popover,
   PopoverTrigger as OrigPopoverTrigger,
@@ -10,12 +11,27 @@ import {
   Image,
   Flex,
 } from "@chakra-ui/react";
-import React from "react";
+import { useUser } from "@clerk/nextjs";
+
+import { clockMapper } from "@app/utils/colorMapper";
+import { trpc } from "@app/utils/trpc";
 
 export const PopoverTrigger: React.FC<{ children: React.ReactNode }> =
   OrigPopoverTrigger;
 
-const ClockPopover = () => {
+const ClockPopover = ({ id }: { id: string }) => {
+  const { user } = useUser();
+
+  const handleReminder = trpc.useMutation("todo.set-reminder");
+
+  const handleReminderTodo = async (reminderTime: keyof typeof clockMapper) => {
+    await handleReminder.mutateAsync({
+      reminderTime,
+      todoId: id,
+      userEmail: user?.primaryEmailAddress?.emailAddress ?? "",
+    });
+  };
+
   return (
     <Popover placement="bottom" closeOnBlur={true} autoFocus={false} closeOnEsc>
       <PopoverTrigger>
@@ -33,11 +49,7 @@ const ClockPopover = () => {
           }}
         />
       </PopoverTrigger>
-      <PopoverContent
-        color="white"
-        bg="purple.500"
-        borderColor="purple.400"
-      >
+      <PopoverContent color="white" bg="purple.500" borderColor="purple.400">
         <PopoverHeader pt={4} fontWeight="bold" border="0">
           Choose a time for reminder!
         </PopoverHeader>
@@ -46,38 +58,20 @@ const ClockPopover = () => {
         <PopoverBody>
           A mail will be sent out about the task you chose.
           <Flex flexDirection="row" gap="1rem" mt="1rem">
-            <Button
-              variant="outline"
-              _hover={{
-                backgroundColor: "purple.600",
-              }}
-            >
-              1 Hour
-            </Button>
-            <Button
-              variant="outline"
-              _hover={{
-                backgroundColor: "purple.600",
-              }}
-            >
-              2 Hour
-            </Button>
-            <Button
-              variant="outline"
-              _hover={{
-                backgroundColor: "purple.600",
-              }}
-            >
-              3 Hour
-            </Button>
-            <Button
-              variant="outline"
-              _hover={{
-                backgroundColor: "purple.600",
-              }}
-            >
-              4 Hour
-            </Button>
+            {Object.entries(clockMapper).map(([key, value]) => (
+              <Button
+                onClick={() =>
+                  handleReminderTodo(key as keyof typeof clockMapper)
+                }
+                key={key}
+                variant="outline"
+                _hover={{
+                  backgroundColor: "purple.600",
+                }}
+              >
+                {value}
+              </Button>
+            ))}
           </Flex>
         </PopoverBody>
       </PopoverContent>

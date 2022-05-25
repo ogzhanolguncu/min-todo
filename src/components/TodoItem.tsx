@@ -98,7 +98,7 @@ export const TodoItem = ({
             transform: "rotate(-3deg)",
           }}
         />
-        <ClockPopover />
+        <ClockPopover id={id} />
       </HStack>
     </Flex>
   );

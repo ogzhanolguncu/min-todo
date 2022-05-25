@@ -1,22 +1,47 @@
-const nodeMailer = require("nodemailer")
-const { worker_threads } = require("worker_threads");
+const worker_threads = require("worker_threads");
+const AWS = require("aws-sdk");
+const { PrismaClient } = require("@prisma/client");
+
+const SES = new AWS.SES({
+  accessKeyId: process.env.AWS_SES_ACCESS_KEY,
+  secretAccessKey: process.env.AWS_SES_SECRET_ACCESS_KEY,
+  region: "eu-central-1",
+});
 
 async function main() {
-  const transporter = nodeMailer.createTransport({
-    host: "",
-    port: 587,
-    auth: {
-      user: "apikey",
-      pass: "",
+  const params = {
+    Destination: {
+      ToAddresses: [worker_threads.workerData.receiver],
     },
-  });
+    Message: {
+      Body: {
+        Text: {
+          Charset: "UTF-8",
+          Data: `Friendly reminder sent by Tokei about the task you haven't completed yet. Get it done!`,
+        },
+      },
 
-  await transporter.sendMail({
-    from: "min-todo", //SENDER
-    to: worker_threads.receiver, //MULTIPLE RECEIVERS
-    subject: worker_threads.subject, //EMAIL SUBJECT
-    text: `You haven't completed ${worker_threads.subject} yet.`, //EMAIL BODY IN TEXT FORMAT
+      Subject: {
+        Charset: "UTF-8",
+        Data: worker_threads.workerData.subject,
+      },
+    },
+    Source: process.env.AWS_SES_VERIFIED_EMAIL ?? "",
+  };
+  // SES.sendEmail(params, (err) => {
+  //   if (err) throw err;
+  //   return true;
+  // });
+  await new PrismaClient().todo.update({
+    where: {
+      id: worker_threads.workerData.todoId,
+    },
+    data: {
+      reminderScheduled: false,
+    },
   });
 }
 
-main().catch((err) => console.log(err));
+main()
+  .then(() => console.log("Mail sent."))
+  .catch((err) => console.log("Error occured.", err));

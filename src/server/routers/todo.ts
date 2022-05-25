@@ -2,13 +2,11 @@ import { z } from "zod";
 import { createRouter } from "../createRouter";
 import { prisma } from "../prisma";
 import { sharedAddValidation } from "../../shared/index";
-// import { EmailScheduler } from "../utils/scheduler";
+import { EmailScheduler } from "../../utils/scheduler";
 
 export const todoRouter = createRouter()
   .query("get-all", {
     async resolve({ ctx }) {
-      // EmailScheduler.start();
-
       const userId = ctx.req?.auth?.userId;
       if (!userId) return;
 
@@ -80,5 +78,25 @@ export const todoRouter = createRouter()
           isCompleted: !todo?.isCompleted,
         },
       });
+    },
+  })
+  .mutation("set-reminder", {
+    input: z.object({
+      userEmail: z.string().email().nonempty(),
+      todoId: z.string().nonempty(),
+      reminderTime: z.enum(["1H", "2H", "3H", "4H"]),
+    }),
+    async resolve({ input }) {
+      const todo = await prisma.todo.update({
+        where: {
+          id: input.todoId,
+        },
+        data: {
+          reminderScheduled: true,
+        },
+      });
+      if (!todo) return;
+      EmailScheduler(input.userEmail, todo?.content, input.reminderTime, todo.id);
+
     },
   });
