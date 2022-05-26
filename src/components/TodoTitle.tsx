@@ -4,12 +4,15 @@ import { Flex, Heading, Skeleton, Text } from "@chakra-ui/react";
 import { trpc } from "@app/utils/trpc";
 
 const TodoTitle = () => {
-  const { data, isFetching } = trpc.useQuery(["todo.get-all"]);
+  const { data, isFetching } = trpc.useQuery([
+    "todo.get-all",
+    { sortBy: "asc" },
+  ]);
   const completedTodoCount = data?.filter((todo) => todo.isCompleted).length;
 
   return (
     <Flex flexDirection="column" gap="0.5rem" my="2rem">
-      <Heading fontSize="6xl">My Tasks</Heading>
+      <Heading fontSize="6xl">Tokei</Heading>
       <Skeleton
         isLoaded={!isFetching}
         height="30px"

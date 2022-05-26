@@ -6,13 +6,19 @@ import { EmailScheduler } from "../../utils/scheduler";
 
 export const todoRouter = createRouter()
   .query("get-all", {
-    async resolve({ ctx }) {
+    input: z.object({
+      sortBy: z.enum(["asc", "desc"]).default("asc"),
+    }),
+    async resolve({ ctx, input }) {
       const userId = ctx.req?.auth?.userId;
       if (!userId) return;
 
       return await prisma.todo.findMany({
         where: {
           ownerId: userId,
+        },
+        orderBy: {
+          priority: input.sortBy,
         },
       });
     },
@@ -96,7 +102,26 @@ export const todoRouter = createRouter()
         },
       });
       if (!todo) return;
-      EmailScheduler(input.userEmail, todo?.content, input.reminderTime, todo.id);
+      EmailScheduler(
+        input.userEmail,
+        todo?.content,
+        input.reminderTime,
+        todo.id
+      );
+      return {
+        message: `Reminder will be sent ${input.reminderTime} later.`,
+      };
+    },
+  })
+  .mutation("delete-all", {
+    async resolve({ ctx }) {
+      const userId = ctx.req?.auth?.userId;
+      if (!userId) return;
 
+      await prisma.todo.deleteMany({
+        where: {
+          ownerId: userId,
+        },
+      });
     },
   });

@@ -1,8 +1,17 @@
 import React from "react";
 
-import { Box, Center, Divider, Flex, Stack, Text } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  Center,
+  Divider,
+  Flex,
+  Stack,
+  Text,
+} from "@chakra-ui/react";
 import dayjs from "dayjs";
 import { motion } from "framer-motion";
+import { useAtom } from "jotai";
 
 import { trpc } from "@app/utils/trpc";
 import { colorMapper } from "@app/utils/colorMapper";
@@ -11,11 +20,20 @@ import { TodoItem } from "@app/components/TodoItem";
 import TodoSkeletonLoaders from "@app/components/TodoSkeletonLoaders";
 import TodoTitle from "@app/components/TodoTitle";
 import UserInfo from "@app/components/UserInfo";
+import ActionGroup from "@app/components/ActionGroup";
+import { sortByAtom } from '../atoms/index';
 
 const MotionBox = motion(Box);
 
 export default function Home() {
-  const { data, isLoading, isFetched } = trpc.useQuery(["todo.get-all"]);
+  const [sortBy] = useAtom(sortByAtom);
+
+  const { data, isLoading, isFetched } = trpc.useQuery([
+    "todo.get-all",
+    {
+      sortBy,
+    },
+  ]);
 
   return (
     <Center
@@ -49,9 +67,12 @@ export default function Home() {
           <Flex gap="2rem" flexDirection="column" mb="2rem">
             <TodoInputGroup />
             <TodoTitle />
+            <ActionGroup />
             <Stack w="100%" gap="1rem" fontWeight="medium">
               {isFetched && !data?.length && (
-                <Text fontSize="2xl">No todos yet.</Text>
+                <Text color="#5f708a" fontWeight="medium" fontSize="2xl">
+                  No todos yet.
+                </Text>
               )}
               {data?.map((todo, index) => {
                 const isLast = data.length - 1 === index;
@@ -82,4 +103,7 @@ export default function Home() {
       </Flex>
     </Center>
   );
+}
+function sortAtom(sortAtom: any): [any, any] {
+  throw new Error("Function not implemented.");
 }

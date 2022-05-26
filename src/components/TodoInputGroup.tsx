@@ -27,7 +27,7 @@ const TodoInputGroup = () => {
   const utils = trpc.useContext();
   const addTodo = trpc.useMutation("todo.add", {
     async onSuccess() {
-      await utils.invalidateQueries(["todo.get-all"]);
+      await utils.invalidateQueries(["todo.get-all", {"sortBy": "asc"}]);
     },
   });
 

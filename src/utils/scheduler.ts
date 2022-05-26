@@ -17,7 +17,7 @@ export const EmailScheduler = (
 ) => {
   BreeBase.add({
     name: `sendEmail-${subject.replaceAll(" ", "-")}`,
-    timeout: "10s",
+    timeout,
     path: `${appRoot.path}/jobs/sendEmail.js`,
     worker: {
       workerData: {

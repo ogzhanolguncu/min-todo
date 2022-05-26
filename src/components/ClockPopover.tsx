@@ -32,6 +32,8 @@ const ClockPopover = ({ id }: { id: string }) => {
     });
   };
 
+  console.log({ data: handleReminder});
+
   return (
     <Popover placement="bottom" closeOnBlur={true} autoFocus={false} closeOnEsc>
       <PopoverTrigger>

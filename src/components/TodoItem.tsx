@@ -1,5 +1,5 @@
 import React from "react";
-import { Flex, Text, Image, HStack } from "@chakra-ui/react";
+import { Flex, Text, Image, HStack, useOutsideClick } from "@chakra-ui/react";
 
 import { trpc } from "@app/utils/trpc";
 import ClockPopover from "./ClockPopover";
@@ -22,12 +22,12 @@ export const TodoItem = ({
   const utils = trpc.useContext();
   const deleteTodo = trpc.useMutation("todo.delete", {
     async onSuccess() {
-      await utils.invalidateQueries(["todo.get-all"]);
+      await utils.invalidateQueries(["todo.get-all", { sortBy: "asc" }]);
     },
   });
   const completeTodo = trpc.useMutation("todo.complete", {
     async onSuccess() {
-      await utils.invalidateQueries(["todo.get-all"]);
+      await utils.invalidateQueries(["todo.get-all", { sortBy: "asc" }]);
     },
   });
 
