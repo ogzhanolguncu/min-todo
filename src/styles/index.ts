@@ -17,6 +17,23 @@ const customTheme = extendTheme({
     medium: 500,
     bold: 700,
   },
+  color: {
+    siteBg: "#d2fff773",
+  },
+  components: {
+    Alert: {
+      variants: {
+        subtle: () => {
+          return {
+            container: {
+              bg: "#d2fff773",
+              color: "gray.800",
+            },
+          };
+        },
+      },
+    },
+  },
 });
 
 export default customTheme;

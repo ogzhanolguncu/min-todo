@@ -3,6 +3,7 @@ import { createRouter } from "../createRouter";
 import { prisma } from "../prisma";
 import { sharedAddValidation } from "../../shared/index";
 import { EmailScheduler } from "../../utils/scheduler";
+import dayjs from "dayjs";
 
 export const todoRouter = createRouter()
   .query("get-all", {
@@ -13,12 +14,27 @@ export const todoRouter = createRouter()
       const userId = ctx.req?.auth?.userId;
       if (!userId) return;
 
-      return await prisma.todo.findMany({
+      return prisma.todo.findMany({
         where: {
           ownerId: userId,
         },
         orderBy: {
           priority: input.sortBy,
+        },
+      });
+    },
+  })
+  .query("get", {
+    input: z.object({
+      todoId: z.string().nonempty(),
+    }),
+    async resolve({ ctx, input }) {
+      const userId = ctx.req?.auth?.userId;
+      if (!userId) return;
+
+      return prisma.todo.findUnique({
+        where: {
+          id: input.todoId,
         },
       });
     },
@@ -90,7 +106,7 @@ export const todoRouter = createRouter()
     input: z.object({
       userEmail: z.string().email().nonempty(),
       todoId: z.string().nonempty(),
-      reminderTime: z.enum(["1H", "2H", "3H", "4H"]),
+      reminderTime: z.enum(["30M", "1H", "2H", "3H", "4H"]),
     }),
     async resolve({ input }) {
       const todo = await prisma.todo.update({
@@ -99,15 +115,19 @@ export const todoRouter = createRouter()
         },
         data: {
           reminderScheduled: true,
+          reminderCreatedAt: dayjs().toDate(),
+          reminderTime: dayjs()
+            .add(Number(input.reminderTime.split("H")[0]), "hour")
+            .toDate(),
         },
       });
       if (!todo) return;
-      EmailScheduler(
-        input.userEmail,
-        todo?.content,
-        input.reminderTime,
-        todo.id
-      );
+      // EmailScheduler(
+      //   input.userEmail,
+      //   todo?.content,
+      //   input.reminderTime,
+      //   todo.id
+      // );
       return {
         message: `Reminder will be sent ${input.reminderTime} later.`,
       };

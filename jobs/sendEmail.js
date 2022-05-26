@@ -28,10 +28,10 @@ async function main() {
     },
     Source: process.env.AWS_SES_VERIFIED_EMAIL ?? "",
   };
-  // SES.sendEmail(params, (err) => {
-  //   if (err) throw err;
-  //   return true;
-  // });
+  SES.sendEmail(params, (err) => {
+    if (err) throw err;
+    return true;
+  });
   await new PrismaClient().todo.update({
     where: {
       id: worker_threads.workerData.todoId,

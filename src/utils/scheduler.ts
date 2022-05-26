@@ -12,7 +12,7 @@ export const BreeBase = new Bree({
 export const EmailScheduler = (
   receiver: string,
   subject: string,
-  timeout: "1H" | "2H" | "3H" | "4H",
+  timeout: "30M" | "1H" | "2H" | "3H" | "4H",
   todoId: string
 ) => {
   BreeBase.add({

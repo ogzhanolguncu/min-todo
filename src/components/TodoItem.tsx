@@ -3,6 +3,7 @@ import { Flex, Text, Image, HStack, useOutsideClick } from "@chakra-ui/react";
 
 import { trpc } from "@app/utils/trpc";
 import ClockPopover from "./ClockPopover";
+import { TransitionImage } from "./TransitionImage";
 
 type Props = {
   content: string;
@@ -83,23 +84,21 @@ export const TodoItem = ({
           </Text>
         </Flex>
       </Flex>
-      <HStack justifyContent="center" ml={[0, 0, 0, "4rem"]}>
-        <Image
+      <Flex
+        justifyContent="center"
+        alignItems="center"
+        gap="0.8rem"
+        my={["1rem", "1rem", 0, 0]}
+      >
+        <TransitionImage
           alt="thrash"
           width={["60px", "60px", "70px", "70px"]}
           height={["60px", "60px", "70px", "70px"]}
-          borderRadius="10px"
-          backgroundSize="contain"
           src="/trash2.png"
-          cursor="pointer"
-          bgRepeat="no-repeat"
           onClick={handleDeleteTodo}
-          _hover={{
-            transform: "rotate(-3deg)",
-          }}
         />
         <ClockPopover id={id} />
-      </HStack>
+      </Flex>
     </Flex>
   );
 };

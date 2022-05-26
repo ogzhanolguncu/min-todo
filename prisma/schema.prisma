@@ -19,6 +19,8 @@ model Todo {
   priority          Priority @default(GREEN)
   ownerId           String
   reminderScheduled Boolean  @default(false)
+  reminderCreatedAt DateTime @default(now())
+  reminderTime      DateTime @default(now())
 
   @@unique([id, ownerId])
 }
