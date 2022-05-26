@@ -122,12 +122,12 @@ export const todoRouter = createRouter()
         },
       });
       if (!todo) return;
-      // EmailScheduler(
-      //   input.userEmail,
-      //   todo?.content,
-      //   input.reminderTime,
-      //   todo.id
-      // );
+      EmailScheduler(
+        input.userEmail,
+        todo?.content,
+        input.reminderTime,
+        todo.id
+      );
       return {
         message: `Reminder will be sent ${input.reminderTime} later.`,
       };
