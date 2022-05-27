@@ -44,6 +44,7 @@ const TodoInputGroup = () => {
         startColor="#e9c7ed"
         endColor="#dbc4da"
         borderRadius="10px"
+        width={["250px", "250px", "650px", "650px"]}
       />
     );
   }

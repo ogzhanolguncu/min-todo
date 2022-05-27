@@ -2,7 +2,7 @@ import { z } from "zod";
 import { createRouter } from "../createRouter";
 import { prisma } from "../prisma";
 import { sharedAddValidation } from "../../shared/index";
-import { EmailScheduler } from "../../utils/scheduler";
+import { EmailScheduler, BreeBase } from "../../utils/scheduler";
 import dayjs from "dayjs";
 
 export const todoRouter = createRouter()
@@ -63,7 +63,7 @@ export const todoRouter = createRouter()
       const userId = ctx.req?.auth?.userId;
       if (!userId) return;
 
-      await prisma.todo.delete({
+      const deletedTodo = await prisma.todo.delete({
         where: {
           id_ownerId: {
             id: input.id,
@@ -71,6 +71,7 @@ export const todoRouter = createRouter()
           },
         },
       });
+      BreeBase.stop(`sendEmail-${deletedTodo.content.replaceAll(" ", "-")}`);
     },
   })
   .mutation("complete", {
