@@ -71,7 +71,7 @@ export const todoRouter = createRouter()
           },
         },
       });
-      BreeBase.stop(`sendEmail-${deletedTodo.content.replaceAll(" ", "-")}`);
+      BreeBase.stop(`sendEmail-${deletedTodo.content.replace(/ /g, "-")}`);
     },
   })
   .mutation("complete", {
