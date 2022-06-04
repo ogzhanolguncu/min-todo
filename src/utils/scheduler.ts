@@ -16,7 +16,7 @@ export const EmailScheduler = (
   todoId: string
 ) => {
   BreeBase.add({
-    name: `sendEmail-${subject.replaceAll(" ", "-")}`,
+    name: `sendEmail-${subject.replace(/ /g, "-")}`,
     timeout,
     path: `${appRoot.path}/jobs/sendEmail.js`,
     worker: {
@@ -27,5 +27,5 @@ export const EmailScheduler = (
       },
     },
   });
-  BreeBase.start(`sendEmail-${subject.replaceAll(" ", "-")}`);
+  BreeBase.start(`sendEmail-${subject.replace(/ /g, "-")}`);
 };
