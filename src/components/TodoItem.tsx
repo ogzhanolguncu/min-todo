@@ -97,7 +97,6 @@ export const TodoItem = ({
           src="/trash2.png"
           onClick={handleDeleteTodo}
         />
-        <ClockPopover id={id} />
       </Flex>
     </Flex>
   );
